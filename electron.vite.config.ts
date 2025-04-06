@@ -2,6 +2,10 @@ import { resolve } from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
 import react from '@vitejs/plugin-react'
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineConfig({
   main: {
     plugins: [externalizeDepsPlugin()]
@@ -12,9 +16,12 @@ export default defineConfig({
   renderer: {
     resolve: {
       alias: {
-        '@renderer': resolve('src/renderer/src')
+        '@': resolve('src/renderer/src')
       }
     },
-    plugins: [react()]
+    plugins: [react(), tailwindcss()],
+    optimizeDeps: {
+      exclude: ['lucide-react']
+    }
   }
 })

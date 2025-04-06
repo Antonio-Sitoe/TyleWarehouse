@@ -10,8 +10,12 @@
     "composite": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
     "paths": {
-      "@renderer/*": [
+      "@/*": [
         "src/renderer/src/*"
       ]
     }
