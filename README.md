@@ -1,34 +1,61 @@
-# tylewarehouse
+Claro! Aqui está um **README básico** para o seu projeto de sistema de gestão de estoque de tijoleiras, com foco nas tecnologias utilizadas e funcionalidades principais:
 
-An Electron application with React and TypeScript
+---
 
-## Recommended IDE Setup
+# 📦 CeramiStock
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+**CeramiStock** is a desktop application designed to simplify and digitize stock management for warehouses that sell ceramic tiles. Built with modern technologies, the system offers offline-first support, real-time synchronization, and an intuitive interface tailored for operational efficiency.
 
-## Project Setup
+## 🛠️ Technologies Used
 
-### Install
+- **Frontend/UI**: React.js + TypeScript
+- **Backend**: Node.js + Drizzle ORM
+- **Desktop App**: Electron.js
+- **Local Database**: SQLite
+- **Cloud Database**: PostgreSQL (via backend sync)
 
-```bash
-$ yarn
+## 🔑 Key Features
+
+- **Product Management**: Register, edit, and organize ceramic tile products by category, size, and color.
+- **Supplier Control**: Manage supplier data and associate them with specific products.
+- **Client Management**: Keep track of client details and purchase history.
+- **Stock Control**: Log product entries and exits, monitor quantities in real-time.
+- **Sales System**: Create and manage sales orders, apply discounts, and generate invoices.
+- **Cash Register**: Register financial transactions and monitor cash flow.
+- **Reports & Dashboards**: Generate visual reports for inventory, sales, and finance.
+- **User Roles**: Secure access with role-based permissions (Admin, Seller, Stock Manager).
+- **Audit Trail**: Full history of operations for transparency and traceability.
+
+## 🚀 Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/ceramistock.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the app in development:
+   ```bash
+   npm run dev
+   ```
+4. Build for production:
+   ```bash
+   npm run build
+   ```
+
+## 📂 Folder Structure (Example)
+
+```
+/src
+  /components
+  /pages
+  /services
+  /database
+  /electron
 ```
 
-### Development
+## 📄 License
 
-```bash
-$ yarn dev
-```
-
-### Build
-
-```bash
-# For windows
-$ yarn build:win
-
-# For macOS
-$ yarn build:mac
-
-# For Linux
-$ yarn build:linux
-```
+This project is licensed under the MIT License.
