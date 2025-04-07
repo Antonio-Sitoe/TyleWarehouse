@@ -5,4 +5,3 @@ export function Spinner({ className }: { className?: string }) {
     </div>
   )
 }
-
