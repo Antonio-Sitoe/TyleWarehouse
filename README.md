@@ -1,10 +1,6 @@
-Claro! Aqui está um **README básico** para o seu projeto de sistema de gestão de estoque de tijoleiras, com foco nas tecnologias utilizadas e funcionalidades principais:
+# 📦 TyleWarehouse
 
----
-
-# 📦 CeramiStock
-
-**CeramiStock** is a desktop application designed to simplify and digitize stock management for warehouses that sell ceramic tiles. Built with modern technologies, the system offers offline-first support, real-time synchronization, and an intuitive interface tailored for operational efficiency.
+**TyleWarehouse** is a desktop application designed to simplify and digitize stock management for warehouses that sell ceramic tiles. Built with modern technologies, the system offers offline-first support, real-time synchronization, and an intuitive interface tailored for operational efficiency.
 
 ## 🛠️ Technologies Used
 
@@ -30,7 +26,7 @@ Claro! Aqui está um **README básico** para o seu projeto de sistema de gestão
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/ceramistock.git
+   git clone https://github.com/antonio-sitoe/TyleWarehouse.git
    ```
 2. Install dependencies:
    ```bash

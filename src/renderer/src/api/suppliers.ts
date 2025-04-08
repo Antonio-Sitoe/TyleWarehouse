@@ -1,5 +1,3 @@
-'use server'
-
 import { api } from '@/lib/axios'
 import { ISupplier, Supplier } from '@shared/zod/suppliers'
 
