@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -20,8 +21,8 @@ import { useState } from 'react'
 import { isAxiosError } from 'axios'
 import { useLayoutEffect } from 'react'
 
-import { Header } from '@/components/header'
 import { api } from '@/lib/axios'
+import { ThemeToggle } from '@/components/theme/theme-toggle'
 
 interface NavItem {
   title: string
@@ -33,7 +34,7 @@ const navItems: NavItem[] = [
   { title: 'Dashboard', href: '/app', icon: Home },
   { title: 'Products', href: '/app/products', icon: Package },
   { title: 'Funcionários', href: '/app/suppliers', icon: Truck2 },
-  { title: 'Customers', href: '/app/customers', icon: Users },
+  { title: 'Clientes', href: '/app/customers', icon: Users },
   { title: 'Sales', href: '/app/sales', icon: ShoppingCart },
   { title: 'Stock', href: '/app/stock', icon: Boxes },
   { title: 'Reports', href: '/app/reports', icon: BarChart3 },
@@ -91,10 +92,15 @@ export function AppLayout() {
                   )
                 }
               >
+                {/* @ts-ignore */}
                 <item.icon className="h-4 w-4" />
                 {item.title}
               </NavLink>
             ))}
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <p>Tema</p>
+            </div>
           </nav>
         </ScrollArea>
       </aside>
@@ -108,12 +114,15 @@ export function AppLayout() {
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <h2 className="text-lg font-semibold">Inventory Pro</h2>
+            <div className="flex items-center gap-2">
+              <Book className="h-6 w-6" />
+              <h2 className="text-2xl font-bold tracking-tight">Tyle.WareHouse</h2>
+            </div>
           </div>
         </div>
         <SheetContent side="left" className="w-64 p-0">
           <div className="p-6">
-            <h2 className="text-2xl font-bold tracking-tight">Inventory Pro</h2>
+            <h2 className="text-2xl font-bold tracking-tight">Tyle.WareHouse</h2>
           </div>
           <ScrollArea className="h-[calc(100vh-5rem)]">
             <nav className="flex flex-col gap-2 p-3">
@@ -129,6 +138,7 @@ export function AppLayout() {
                     )
                   }
                 >
+                  {/* @ts-ignore */}
                   <item.icon className="h-4 w-4" />
                   {item.title}
                 </NavLink>
@@ -141,7 +151,6 @@ export function AppLayout() {
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
         <div className="mx-auto flex min-h-screen flex-col antialiased">
-          <Header />
           <div className="flex flex-1 flex-col gap-4 p-6">
             <Outlet />
           </div>

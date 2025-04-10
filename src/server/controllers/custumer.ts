@@ -11,10 +11,26 @@ export function costumerControllers(app: FastifyInstance) {
     return reply.code(201).send(created)
   })
 
-  app.get('/costumers', async (request) => {
+  app.get('/costumers', async (request, reply) => {
     const query = paginationSchema.parse(request.query)
-    const data = await costumerService.getAll(query.page, query.pageSize, query.name)
-    return data
+    const { costumers, totalItems } = await costumerService.getAll(
+      query.page,
+      query.limit,
+      query.name
+    )
+    const totalPages = Math.ceil(totalItems / query.limit)
+
+    return reply.status(200).send({
+      meta: {
+        totalItems,
+        itemCount: costumers.length,
+        itemsPerPage: query.limit,
+        totalPages,
+        currentPage: query.page,
+        nextPage: query.page < totalPages ? query.page + 1 : null
+      },
+      items: costumers
+    })
   })
 
   app.get('/costumers/:id', async (request, reply) => {

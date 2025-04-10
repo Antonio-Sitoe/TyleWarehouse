@@ -9,7 +9,7 @@ export const paginationSchema = z.object({
       message: 'Página inválida'
     }),
 
-  pageSize: z
+  limit: z
     .string()
     .optional()
     .transform((val) => (val ? parseInt(val) : 10))

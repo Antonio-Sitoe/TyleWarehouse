@@ -90,7 +90,7 @@ export function Pagination({ currentPage, totalPages, onPageChange, className }:
   }
 
   return (
-    <div className={cn('flex items-center justify-center space-x-2', className)}>
+    <div className={cn('flex items-center justify-end space-x-2 mt-5', className)}>
       <Button
         variant="outline"
         size="icon"

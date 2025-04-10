@@ -22,29 +22,25 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { createSupplier, updateSupplier } from '@/api/suppliers'
-import { Supplier, supplierSchema } from '@shared/zod/suppliers'
+import { CostumerSchema, ICustomerData } from '@shared/zod/costumer-schema'
+import { createCostumer, updateCostumer } from '@/api/costumers'
 
 interface Props {
   open: boolean
-  supplier?: Supplier
+  supplier?: ICustomerData
   onSuccess: () => void
   onOpenChange: (item: boolean) => void
 }
 
-export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Props) {
+export function CreateEditDialog({ open, onOpenChange, supplier, onSuccess }: Props) {
   const isEditing = !!supplier
 
   const form = useForm({
-    resolver: zodResolver(supplierSchema),
+    resolver: zodResolver(CostumerSchema),
     defaultValues: {
       name: '',
-      email: '',
-      phone: '',
-      address: '',
-      notes: ''
+      phone: ''
     }
   })
 
@@ -53,18 +49,13 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
       form.reset({
         id: supplier.id || '',
         name: supplier.name,
-        email: supplier.email || '',
-        phone: supplier.phone || '',
-        address: supplier.address || '',
-        notes: supplier.notes || ''
+        phone: supplier.phone || ''
       })
     } else {
       form.reset({
+        id: '',
         name: '',
-        email: '',
-        phone: '',
-        address: '',
-        notes: ''
+        phone: ''
       })
     }
 
@@ -74,7 +65,7 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
   }, [supplier, form, open])
 
   const createMutation = useMutation({
-    mutationFn: (data: Supplier) => createSupplier(data),
+    mutationFn: (data: z.infer<typeof CostumerSchema>) => createCostumer(data),
     onSuccess: () => {
       onOpenChange(false)
       form.reset()
@@ -83,7 +74,7 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
   })
 
   const updateMutation = useMutation({
-    mutationFn: (data: Supplier) => updateSupplier(data.id!, data),
+    mutationFn: (data: z.infer<typeof CostumerSchema>) => updateCostumer(data.id!, data),
     onSuccess: () => {
       onOpenChange(false)
       form.reset()
@@ -91,8 +82,7 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
     }
   })
 
-  const onSubmit = (data: z.infer<typeof supplierSchema>) => {
-    console.log(data)
+  const onSubmit = (data: z.infer<typeof CostumerSchema>) => {
     if (data?.id) {
       updateMutation.mutate(data)
     } else {
@@ -106,7 +96,7 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Editar Funcionario' : 'Adicionar Funcionario'}</DialogTitle>
+          <DialogTitle>{isEditing ? 'Editar Cliente' : 'Adicionar Cliente'}</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -115,7 +105,7 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name *</FormLabel>
+                  <FormLabel>Nome *</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -123,64 +113,27 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input {...field} type="email" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
             <FormField
               control={form.control}
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone</FormLabel>
+                  <FormLabel>Telefone</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} type="number" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="address"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Address</FormLabel>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="notes"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Notes</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-                Cancel
+                Cancelar
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? 'Saving...' : isEditing ? 'Update' : 'Create'}
+                {isLoading ? 'Salvar...' : isEditing ? 'Atualizar' : 'Criar'}
               </Button>
             </DialogFooter>
           </form>
