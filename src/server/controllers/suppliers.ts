@@ -4,7 +4,7 @@ import { supplierService } from '../models/actions/supliers'
 import { errorHandler } from '../erros/errorHandler'
 import { BadRequestError } from '../erros/errorHandler'
 
-export async function suppliersControllers(app: FastifyInstance) {
+export function suppliersControllers(app: FastifyInstance) {
   app.post('/suppliers', async (req, reply) => {
     try {
       const data = supplierSchema.parse(req.body)

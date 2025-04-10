@@ -1,50 +1,85 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
-import { useForm } from 'react-hook-form'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
-import { twMerge } from 'tailwind-merge'
+import { TabsList, TabsTrigger, TabsContent, Tabs } from '@/components/ui/tabs'
+
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-
-import { signIn } from '@/api/signi-in'
-import { Button, buttonVariants } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Pizza } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form'
+import { useState } from 'react'
 
-const signInSchema = z.object({
-  email: z.string().email()
+import bg from '@/assets/bg.jpeg'
+
+const emailFormSchema = z.object({
+  email: z.string().min(1, { message: 'Email é obrigatório' }).email({ message: 'Email inválido' }),
+  password: z.string().min(2, { message: 'Senha deve ter pelo menos 4 caracteres' })
 })
 
-type SignInSchema = z.infer<typeof signInSchema>
+const phoneFormSchema = z.object({
+  phone: z.string().min(9, { message: 'Número de telefone é obrigatório' }),
+  password: z.string().min(2, { message: 'Senha deve ter pelo menos 4 caracteres' })
+})
+
+type EmailFormValues = z.infer<typeof emailFormSchema>
+type PhoneFormValues = z.infer<typeof phoneFormSchema>
 
 export function SignIn() {
   const router = useNavigate()
-  const [searchParams] = useSearchParams()
+  const [activeTab, setActiveTab] = useState<'email' | 'phone'>('email')
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting }
-  } = useForm<SignInSchema>({
-    resolver: zodResolver(signInSchema),
+  // Formulário de email
+  const emailForm = useForm<EmailFormValues>({
+    resolver: zodResolver(emailFormSchema),
     defaultValues: {
-      email: searchParams.get('email') ?? ''
+      email: '',
+      password: ''
     }
   })
 
-  const { mutateAsync: authenticate } = useMutation({
-    mutationFn: signIn
+  // Formulário de telefone
+  const phoneForm = useForm<PhoneFormValues>({
+    resolver: zodResolver(phoneFormSchema),
+    defaultValues: {
+      phone: '',
+      password: ''
+    }
   })
 
-  async function handleAuthenticate({ email }: SignInSchema): Promise<void> {
+  // Função para lidar com o envio do formulário de email
+  function onEmailSubmit(data: EmailFormValues) {
+    console.log('Email form submitted:', data)
     try {
       // await authenticate({ email })
       router('/app')
       toast.success('Enviamos um link de autenticação para seu e-mail.', {
         action: {
           label: 'Reenviar',
-          onClick: () => authenticate({ email })
+          onClick: () => {}
+        }
+      })
+    } catch {
+      toast.error('Credenciais inválidas')
+    }
+  }
+
+  function onPhoneSubmit(data: PhoneFormValues) {
+    console.log('Phone form submitted:', data)
+    try {
+      // await authenticate({ email })
+      router('/app')
+      toast.success('Enviamos um link de autenticação para seu e-mail.', {
+        action: {
+          label: 'Reenviar',
+          onClick: () => {}
         }
       })
     } catch {
@@ -53,61 +88,117 @@ export function SignIn() {
   }
 
   return (
-    <div className="container relative hidden min-h-screen flex-col items-center justify-center antialiased md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-      <div className="relative hidden h-full flex-col border-r border-foreground/5 bg-muted p-10 text-muted-foreground dark:border-r lg:flex">
-        <div className="flex items-center gap-3 text-lg font-medium text-foreground">
-          <Pizza className="h-5 w-5" />
-          <span className="font-semibold">pizza.shop</span>
-        </div>
-        <div className="mt-auto">
-          <footer className="text-sm">
-            Painel do parceiro &copy; pizza.shop - {new Date().getFullYear()}
-          </footer>
-        </div>
+    <div className="grid min-h-screen grid-cols-1 md:grid-cols-2">
+      {/* Left side - Ceramic tiles image */}
+      <div className="relative hidden md:block">
+        <img src={bg} alt="Caixas de Tijoleiras cerâmicas" className="h-full w-full object-cover" />
       </div>
 
-      <div className="relative flex min-h-screen flex-col items-center justify-center">
-        <div className="lg:p-8">
-          <a
-            href="/sign-up"
-            className={twMerge(
-              buttonVariants({ variant: 'ghost' }),
-              'absolute right-4 top-4 md:right-8 md:top-8'
-            )}
-          >
-            Novo estabelecimento
-          </a>
-
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-            <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-2xl font-semibold tracking-tight">Acessar painel</h1>
-              <p className="text-sm text-muted-foreground">
-                Acompanhe suas vendas pelo painel do parceiro!
-              </p>
-            </div>
-
-            <div className="grid gap-6">
-              <form onSubmit={handleSubmit(handleAuthenticate)}>
-                <div className="grid gap-4">
-                  <div className="grid gap-2">
-                    <Label htmlFor="email">Seu e-mail</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      autoCapitalize="none"
-                      autoComplete="email"
-                      autoCorrect="off"
-                      {...register('email')}
-                    />
-                  </div>
-
-                  <Button type="submit" disabled={isSubmitting}>
-                    Acessar painel
-                  </Button>
-                </div>
-              </form>
-            </div>
+      {/* Right side - Authentication form */}
+      <div className="flex items-center justify-center p-8">
+        <div className="mx-auto w-full max-w-md space-y-8">
+          <div className="space-y-2 text-center">
+            <h1 className="text-3xl font-bold">Bem-vindo</h1>
+            <p className="text-muted-foreground">Entre na sua conta para continuar</p>
           </div>
+
+          <Tabs
+            defaultValue="email"
+            value={activeTab}
+            onValueChange={(value) => setActiveTab(value as 'email' | 'phone')}
+            className="w-full"
+          >
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="email">Email</TabsTrigger>
+              <TabsTrigger value="phone">Telefone</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="email" className="space-y-4 pt-4">
+              <Form {...emailForm}>
+                <form onSubmit={emailForm.handleSubmit(onEmailSubmit)} className="space-y-4">
+                  <FormField
+                    control={emailForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input placeholder="seu@email.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={emailForm.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-center justify-between">
+                          <FormLabel>Senha</FormLabel>
+                          <a href="#" className="text-sm text-primary hover:underline">
+                            Esqueceu a senha?
+                          </a>
+                        </div>
+                        <FormControl>
+                          <Input type="password" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button type="submit" className="w-full">
+                    Entrar
+                  </Button>
+                </form>
+              </Form>
+            </TabsContent>
+
+            <TabsContent value="phone" className="space-y-4 pt-4">
+              <Form {...phoneForm}>
+                <form onSubmit={phoneForm.handleSubmit(onPhoneSubmit)} className="space-y-4">
+                  <FormField
+                    control={phoneForm.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Número de Telefone</FormLabel>
+                        <FormControl>
+                          <Input type="number" placeholder="+258 (84) 898-4953" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={phoneForm.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-center justify-between">
+                          <FormLabel>Senha</FormLabel>
+                          <a href="#" className="text-sm text-primary hover:underline">
+                            Esqueceu a senha?
+                          </a>
+                        </div>
+                        <FormControl>
+                          <Input type="password" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button type="submit" className="w-full">
+                    Entrar
+                  </Button>
+                </form>
+              </Form>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>
