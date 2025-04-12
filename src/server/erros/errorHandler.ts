@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { ZodError } from 'zod'
 
@@ -8,6 +9,7 @@ export class UnauthorizedError extends Error {
   }
 }
 
+// @ts-ignore
 export function errorHandler(error: unknown, _: FastifyRequest, reply: FastifyReply) {
   console.error(error)
 

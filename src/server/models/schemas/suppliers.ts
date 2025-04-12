@@ -6,12 +6,12 @@ import { createId } from '@paralleldrive/cuid2'
 
 export const suppliers = sqliteTable('suppliers', {
   id: text('id', { length: 255 }).primaryKey().$defaultFn(createId),
-  name: text('name').notNull(),
-  email: text('email'),
-  phone: text('phone'),
-  address: text('address'),
-  notes: text('notes'),
-  createdAt: text('created_at').default(new Date().toISOString())
+  name: text().notNull(),
+  email: text(),
+  phone: text(),
+  address: text(),
+  notes: text(),
+  createdAt: text().default(new Date().toISOString())
 })
 
 export const supplierRelations = relations(suppliers, ({ many }) => ({

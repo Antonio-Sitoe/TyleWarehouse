@@ -19,3 +19,7 @@ export const paginationSchema = z.object({
 
   name: z.string().optional()
 })
+
+export const queryIdSchema = z.object({
+  id: z.string({ required_error: 'Id e obrigatorio' })
+})

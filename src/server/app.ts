@@ -1,8 +1,10 @@
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
-import { suppliersControllers } from './controllers/suppliers'
+
 import { errorHandler } from './erros/errorHandler'
+import { suppliersControllers } from './controllers/suppliers'
 import { costumerControllers } from './controllers/custumer'
+import { categoryControllers } from './controllers/categories'
 
 const app = Fastify()
 
@@ -14,6 +16,7 @@ app.register(cors, {
 app.get('/', () => ({ hello: 'world' }))
 app.register(suppliersControllers)
 app.register(costumerControllers)
+app.register(categoryControllers)
 
 app.setErrorHandler(errorHandler)
 
