@@ -5,7 +5,7 @@ export const paginationSchema = z.object({
     .string()
     .optional()
     .transform((val) => (val ? parseInt(val) : 1))
-    .refine((val) => !isNaN(val) && val > 0, {
+    .refine((val) => !isNaN(val), {
       message: 'Página inválida'
     }),
 

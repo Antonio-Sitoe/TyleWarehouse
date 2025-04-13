@@ -17,3 +17,9 @@ export function formatDate(dateString: string) {
     day: 'numeric'
   }).format(date)
 }
+export function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('pt-MZ', {
+    style: 'currency',
+    currency: 'MZN'
+  }).format(amount)
+}

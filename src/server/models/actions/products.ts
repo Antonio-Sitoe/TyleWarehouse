@@ -27,6 +27,8 @@ class ProductsService {
             quantity: products.quantity,
             price: products.price,
             createdAt: products.createdAt,
+            categoryId: products.categoryId,
+            supplierId: products.supplierId,
             categoryName: categories.name,
             supplierName: suppliers.name
           })

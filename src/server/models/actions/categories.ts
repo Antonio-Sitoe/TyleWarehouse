@@ -23,6 +23,14 @@ export class CategoryService {
     return category[0]
   }
 
+  async getAllWithoutFilter() {
+    const data = await db.select().from(categories)
+    return {
+      data: data,
+      totalItems: data.length
+    }
+  }
+
   async getAll(page = 1, pageSize = 10, name?: string) {
     const whereOptions = name ? like(categories.name, `%${name}%`) : undefined
     const [list, count] = await Promise.all([

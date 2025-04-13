@@ -42,9 +42,7 @@
       "indexes": {
         "category_name_unique": {
           "name": "category_name_unique",
-          "columns": [
-            "name"
-          ],
+          "columns": ["name"],
           "isUnique": true
         }
       },
@@ -176,12 +174,8 @@
           "name": "products_categoryId_category_id_fk",
           "tableFrom": "products",
           "tableTo": "category",
-          "columnsFrom": [
-            "categoryId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["categoryId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -189,12 +183,8 @@
           "name": "products_supplierId_suppliers_id_fk",
           "tableFrom": "products",
           "tableTo": "suppliers",
-          "columnsFrom": [
-            "supplierId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["supplierId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }

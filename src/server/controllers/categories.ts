@@ -25,7 +25,10 @@ export function categoryControllers(app: FastifyInstance) {
 
   app.get('/categories', async (request, reply) => {
     const query = paginationSchema.parse(request.query)
-    const { data, totalItems } = await categoriesService.getAll(query.page, query.limit, query.name)
+    const { data, totalItems } =
+      query.page === 0
+        ? await categoriesService.getAllWithoutFilter()
+        : await categoriesService.getAll(query.page, query.limit, query.name)
     const totalPages = Math.ceil(totalItems / query.limit)
     return reply.status(200).send({
       meta: {

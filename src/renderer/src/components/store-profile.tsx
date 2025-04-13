@@ -26,7 +26,7 @@ const schema = z.object({
 
 type STORE_SCHEMA = z.infer<typeof schema>
 
-export function StoreProfile(): JSX.Element {
+export function StoreProfile() {
   const queryClient = useQueryClient()
   const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } = useQuery({
     queryKey: ['managed-restaurant'],
