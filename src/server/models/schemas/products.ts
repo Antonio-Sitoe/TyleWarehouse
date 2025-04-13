@@ -8,14 +8,18 @@ export const products = sqliteTable('products', {
   id: text('id', { length: 255 }).primaryKey().$defaultFn(createId),
   name: text().notNull(),
   categoryId: text()
-    .references(() => categories.id)
+    .references(() => categories.id, {
+      onDelete: 'cascade'
+    })
     .notNull()
     .default(''),
   size: text().notNull(),
   color: text().notNull(),
   quantity: integer().default(40).notNull(),
   price: integer().notNull(),
-  supplierId: text().references(() => suppliers.id),
+  supplierId: text().references(() => suppliers.id, {
+    onDelete: 'cascade'
+  }),
   createdAt: text().default(new Date().toISOString())
 })
 
@@ -29,3 +33,5 @@ export const productsRelations = relations(products, ({ one }) => ({
     references: [categories.id]
   })
 }))
+
+export type IProductInsert = typeof products.$inferInsert

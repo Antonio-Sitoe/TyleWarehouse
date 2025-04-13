@@ -48,10 +48,10 @@ export default function SuppliersPage() {
   return (
     <div className="container py-10 space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">Funcionários</h1>
+        <h1 className="text-3xl font-bold">Fornecedores</h1>
         <Button onClick={() => setIsAddDialogOpen(true)}>
           <Plus className="mr-2 h-4 w-4" />
-          Adicionar funcionários
+          Adicionar Fornecedores
         </Button>
       </div>
 

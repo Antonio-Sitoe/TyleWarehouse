@@ -5,18 +5,20 @@ import { errorHandler } from './erros/errorHandler'
 import { suppliersControllers } from './controllers/suppliers'
 import { costumerControllers } from './controllers/custumer'
 import { categoryControllers } from './controllers/categories'
+import { productControllers } from './controllers/products'
 
 const app = Fastify()
 
 app.register(cors, {
   origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS']
 })
 
 app.get('/', () => ({ hello: 'world' }))
 app.register(suppliersControllers)
 app.register(costumerControllers)
 app.register(categoryControllers)
+app.register(productControllers)
 
 app.setErrorHandler(errorHandler)
 

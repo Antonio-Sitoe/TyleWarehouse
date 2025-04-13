@@ -106,7 +106,7 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle>{isEditing ? 'Editar Funcionario' : 'Adicionar Funcionario'}</DialogTitle>
+          <DialogTitle>{isEditing ? 'Editar Fornecedor' : 'Adicionar Fornecedor'}</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -115,7 +115,7 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name *</FormLabel>
+                  <FormLabel>Nome *</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -141,7 +141,7 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Phone</FormLabel>
+                  <FormLabel>Telefone</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -154,7 +154,7 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
               name="address"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Address</FormLabel>
+                  <FormLabel>Localizacao</FormLabel>
                   <FormControl>
                     <Input {...field} />
                   </FormControl>
@@ -167,7 +167,7 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
               name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Notes</FormLabel>
+                  <FormLabel>Descricao</FormLabel>
                   <FormControl>
                     <Textarea {...field} />
                   </FormControl>
@@ -177,10 +177,10 @@ export function SupplierDialog({ open, onOpenChange, supplier, onSuccess }: Prop
             />
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-                Cancel
+                Cancelar
               </Button>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? 'Saving...' : isEditing ? 'Update' : 'Create'}
+                {isLoading ? 'Salvando...' : isEditing ? 'Atualizar' : 'Salvar'}
               </Button>
             </DialogFooter>
           </form>

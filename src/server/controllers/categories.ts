@@ -10,14 +10,14 @@ export function categoryControllers(app: FastifyInstance) {
     return reply.code(201).send({ data: categories })
   })
 
-  app.patch('/categories/:id', async (request, reply) => {
+  app.put('/categories/:id', async (request, reply) => {
     const { id } = request.params as { id: string }
     const { name } = createCategorySchema.parse(request.body)
     const updatedCategory = await categoriesService.update({ id, name })
     return reply.code(200).send({ data: updatedCategory })
   })
 
-  app.get('/categories', async (request, reply) => {
+  app.get('/categories/:id', async (request, reply) => {
     const { id } = queryIdSchema.parse(request.params)
     const data = await categoriesService.getById(id)
     return reply.code(200).send({ data: data })

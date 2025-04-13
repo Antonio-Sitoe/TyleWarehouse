@@ -1,9 +1,58 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "c06f7341-9019-49bf-96b4-14e303dffcd6",
-  "prevId": "bf6202be-5e7a-4443-9db5-666dd8850db4",
+  "id": "05fd1c4a-0862-4abb-8915-a0efe7f2be7c",
+  "prevId": "7a6af063-e1e9-4dcb-838f-146559fff29d",
   "tables": {
+    "category": {
+      "name": "category",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text(255)",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "''"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'2025-04-12T13:25:31.362Z'"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'2025-04-12T13:25:31.362Z'"
+        }
+      },
+      "indexes": {
+        "category_name_unique": {
+          "name": "category_name_unique",
+          "columns": [
+            "name"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
     "costumer": {
       "name": "costumer",
       "columns": {
@@ -34,7 +83,7 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
-          "default": "'2025-04-10T20:29:57.541Z'"
+          "default": "'2025-04-12T13:25:31.365Z'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -42,7 +91,7 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
-          "default": "'2025-04-10T20:29:57.541Z'"
+          "default": "'2025-04-12T13:25:31.365Z'"
         }
       },
       "indexes": {},
@@ -68,12 +117,13 @@
           "notNull": true,
           "autoincrement": false
         },
-        "category": {
-          "name": "category",
+        "categoryId": {
+          "name": "categoryId",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "''"
         },
         "size": {
           "name": "size",
@@ -104,31 +154,48 @@
           "notNull": true,
           "autoincrement": false
         },
-        "supplier_id": {
-          "name": "supplier_id",
-          "type": "integer",
+        "supplierId": {
+          "name": "supplierId",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "created_at": {
-          "name": "created_at",
+        "createdAt": {
+          "name": "createdAt",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
-          "default": "'2025-04-10T20:29:57.552Z'"
+          "default": "'2025-04-12T13:25:31.362Z'"
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "products_supplier_id_suppliers_id_fk": {
-          "name": "products_supplier_id_suppliers_id_fk",
+        "products_categoryId_category_id_fk": {
+          "name": "products_categoryId_category_id_fk",
+          "tableFrom": "products",
+          "tableTo": "category",
+          "columnsFrom": [
+            "categoryId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "products_supplierId_suppliers_id_fk": {
+          "name": "products_supplierId_suppliers_id_fk",
           "tableFrom": "products",
           "tableTo": "suppliers",
-          "columnsFrom": ["supplier_id"],
-          "columnsTo": ["id"],
-          "onDelete": "no action",
+          "columnsFrom": [
+            "supplierId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -181,13 +248,13 @@
           "notNull": false,
           "autoincrement": false
         },
-        "created_at": {
-          "name": "created_at",
+        "createdAt": {
+          "name": "createdAt",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false,
-          "default": "'2025-04-10T20:29:57.552Z'"
+          "default": "'2025-04-12T13:25:31.361Z'"
         }
       },
       "indexes": {},

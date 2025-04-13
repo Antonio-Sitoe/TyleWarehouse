@@ -8,6 +8,6 @@ export const productSchema = z.object({
   color: z.string(),
   quantity: z.number().int().default(40),
   price: z.number().int(),
-  supplierId: z.number().int().optional(),
+  supplierId: z.string(),
   createdAt: z.string().default(new Date().toISOString())
 })

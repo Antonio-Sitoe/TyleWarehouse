@@ -32,13 +32,13 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { title: 'Dashboard', href: '/app', icon: Home },
-  { title: 'Products', href: '/app/products', icon: Package },
-  { title: 'Funcionários', href: '/app/suppliers', icon: Truck2 },
+  { title: 'Produtos (Stock)', href: '/app/products', icon: Package },
+  { title: 'Fornecedores', href: '/app/suppliers', icon: Truck2 },
   { title: 'Clientes', href: '/app/customers', icon: Users },
   { title: 'Sales', href: '/app/sales', icon: ShoppingCart },
   { title: 'Stock', href: '/app/stock', icon: Boxes },
   { title: 'Reports', href: '/app/reports', icon: BarChart3 },
-  { title: 'Settings', href: '/app/settings', icon: Settings }
+  { title: 'Definições', href: '/app/settings', icon: Settings }
 ]
 
 export function AppLayout() {
@@ -72,7 +72,7 @@ export function AppLayout() {
   return (
     <div className="flex min-h-screen">
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex w-64 flex-col border-r bg-gray-50/40 dark:bg-gray-900/40">
+      <aside className="hidden lg:flex w-64 flex-col border-r bg-gray-50/40 dark:bg-card">
         <div className="p-6">
           <div className="flex items-center gap-2">
             <Book className="h-6 w-6" />
@@ -88,7 +88,7 @@ export function AppLayout() {
                 className={({ isActive }) =>
                   cn(
                     'flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50',
-                    isActive && 'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-50'
+                    isActive && 'bg-gray-100 text-gray-900 dark:bg-gray-600 dark:text-gray-50'
                   )
                 }
               >
@@ -97,10 +97,7 @@ export function AppLayout() {
                 {item.title}
               </NavLink>
             ))}
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-              <p>Tema</p>
-            </div>
+            <ThemeToggle />
           </nav>
         </ScrollArea>
       </aside>
