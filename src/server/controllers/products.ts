@@ -4,6 +4,15 @@ import { categoriesService } from '../models/actions/categories'
 import { supplierService } from '../models/actions/supliers'
 import { productService } from '../models/actions/products'
 import { paginationSchema, queryIdSchema } from '../../shared/zod/pagination'
+import { z } from 'zod'
+
+const schema = z
+  .object({
+    categoryId: z.string().optional(),
+    size: z.string().optional(),
+    supplierId: z.string().optional()
+  })
+  .merge(paginationSchema)
 
 export function productControllers(app: FastifyInstance) {
   app.post('/products', async (request, reply) => {
@@ -45,8 +54,16 @@ export function productControllers(app: FastifyInstance) {
   })
 
   app.get('/products', async (request, reply) => {
-    const query = paginationSchema.parse(request.query)
-    const { data, totalItems } = await productService.getAll(query.page, query.limit, query.name)
+    const query = schema.parse(request.query)
+    const { data, totalItems } = await productService.getAll(
+      query.page,
+      query.limit,
+      query.name,
+      query.categoryId,
+      query.size,
+      query.supplierId
+    )
+
     const totalPages = Math.ceil(totalItems / query.limit)
     return reply.status(200).send({
       meta: {

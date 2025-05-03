@@ -79,7 +79,7 @@ export function ProductsTable({ products }: ProductsTableProps) {
                     </div>
                   </TableCell>
                   <TableCell>{product.quantity}</TableCell>
-                  <TableCell>{formatCurrency(product.price / 100)}</TableCell>
+                  <TableCell>{formatCurrency(product.price)}</TableCell>
                   <TableCell>{product?.supplierName || 'N/A'}</TableCell>
                   <TableCell className="text-right" align="right">
                     <div className="flex space-x-2 justify-end">

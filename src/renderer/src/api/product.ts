@@ -3,9 +3,16 @@ import { api } from '@/lib/axios'
 import { ApiReturn } from '@shared/types/types'
 import { IProduct } from '@shared/zod/product-schema'
 
-export async function getProducts({ page = 1, pageSize = 10, search = '' }) {
+export async function getProducts({
+  page = 1,
+  pageSize = 10,
+  search = '',
+  supplierId = '',
+  size = '',
+  categoryId = ''
+}) {
   const { data } = await api.get<ApiReturn<IProduct[]>>(
-    `/products?page=${page}&name=${search}&limit=${pageSize}`
+    `/products?page=${page}&name=${search}&limit=${pageSize}&categoryId=${categoryId}&size=${size}&supplierId=${supplierId}`
   )
   return data
 }
