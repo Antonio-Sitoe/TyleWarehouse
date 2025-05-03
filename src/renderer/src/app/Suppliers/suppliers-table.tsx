@@ -1,6 +1,6 @@
 'use client'
 
-import { Edit, Trash2 } from 'lucide-react'
+import { Edit, Package, Trash2 } from 'lucide-react'
 
 import {
   Table,
@@ -13,6 +13,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { formatDate } from '@/lib/utils'
 import { Supplier } from '@shared/zod/suppliers'
+import { DeliveryTableDrawer } from './delivery-table-drawer'
 
 interface SuppliersTableProps {
   suppliers: Supplier[]
@@ -51,6 +52,12 @@ export function SuppliersTable({ suppliers, onEdit, onDelete }: SuppliersTablePr
                 <TableCell>{supplier.createdAt ? formatDate(supplier.createdAt) : ''}</TableCell>
                 <TableCell>
                   <div className="flex space-x-2">
+                    <DeliveryTableDrawer supplierId={supplier.id!}>
+                      <Button variant="ghost" size="icon">
+                        <Package className="h-4 w-4" />
+                        <span className="sr-only">ver</span>
+                      </Button>
+                    </DeliveryTableDrawer>
                     <Button variant="ghost" size="icon" onClick={() => onEdit(supplier)}>
                       <Edit className="h-4 w-4" />
                       <span className="sr-only">Editar</span>
